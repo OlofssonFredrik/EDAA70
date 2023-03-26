@@ -1,7 +1,7 @@
 import turtle
 
-ninja = turtle.Turtle()
 
+ninja = turtle.Turtle()
 ninja2 = turtle.Turtle()
 for i in range(4):
     ninja.forward(150)

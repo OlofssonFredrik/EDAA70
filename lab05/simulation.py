@@ -26,11 +26,6 @@ def simulate_dice_sum(nr, tries):
   
     return sums
         
-        
-            
-            
-
-
 
 
 #print(roll_dice_sum(5))

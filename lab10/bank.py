@@ -63,5 +63,41 @@ class Bank:
         return list(self._accounts.values())
 
     def all_accounts_sorted_by_balance(self):
-        return sorted(self._accounts.values(), key=lambda account: account.get_balance(), reverse=True)
+        accounts_list = list(self._accounts.values())
+
+        for i in range(len(accounts_list)):
+            max_idx = i
+            for j in range(i+1, len(accounts_list)):
+                if accounts_list[j].get_balance() > accounts_list[max_idx].get_balance():
+                    max_idx = j
+            accounts_list[i], accounts_list[max_idx] = accounts_list[max_idx], accounts_list[i]
+
+        return accounts_list
+    
+
+    
+    
+print('=====================================================')
+bank = Bank()
+
+bank.add_customer('Fredrik')
+bank.create_account('C1')
+bank.create_account('C1')
+bank.create_account('C1')
+
+account1 = bank.get_account(1)
+account2 = bank.get_account(2)
+account3 = bank.get_account(3)
+
+if account1:
+    account1.deposit(100)
+if account2:
+    account3.deposit(1000)
+if account3:
+    account1.deposit(500)
+
+
+print(f"all accounts: {bank.all_accounts()}")
+
+print(f"Sorted accounts: {bank.all_accounts_sorted_by_balance()}")
 

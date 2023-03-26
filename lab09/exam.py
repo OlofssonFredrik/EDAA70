@@ -25,7 +25,7 @@ class ExamResult:
             return grade
     
     def add_result(self,studentid, score):
-        self.result[studentid] = self.grade_from_score(score)
+        self.result[studentid] = score
     
     def get_result(self,studentid):
         return self.result[studentid]
@@ -49,15 +49,17 @@ class ExamResult:
     def statistics(self):
         grades = ['U', '3', '4', '5']
         grade_counts = {grade: (0, 0) for grade in grades}
-
-        for grade in self.result.values():
+        
+        # Convert scores to grades and update grade_counts
+        for score in self.result.values():
+            grade = self.grade_from_score(score)
             if grade in grade_counts:
                 grade_counts[grade] = (grade_counts[grade][0] + 1, 0)
 
+        
         total_students = len(self.result)
         for grade, count in grade_counts.items():
             grade_counts[grade] = (count[0], count[0] / total_students)
-
         return grade_counts
         
     
@@ -68,16 +70,12 @@ class ExamResult:
         print()
         print('# Grades')
         for k, v in self.result.items():
-            if v != 'U':
-                print(f"{k}: {v} ,{self.grade_from_score(int(v))}")
-            else:
-                print(f"{k}: {v} U")
-                
-        print() 
+            print(f"{k}: {v} {self.grade_from_score(v)}")
+        print()
         statistics = self.statistics()
         print('# Grade Statistics')
         for k, v in statistics.items():
-            print(f"{k}: {v[0]} ({int(v[1])*100:.1f}%)")
+            print(f"{k}: {v[0]} ({v[1]*100}%)")
 
 
 exam = ExamResult('EDAA20','2020-01-01',[30,40,50])
@@ -96,10 +94,11 @@ print(f"All students results: {json.dumps(exam.result,indent=4)}")
 #
 #print(exam.students_highest_score())
 #
-#print(exam.statistics())
+
 
 print('=======================')
 exam.print_results()
+#print(exam.statistics())
 
 
 

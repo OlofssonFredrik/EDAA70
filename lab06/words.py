@@ -32,7 +32,29 @@ def count_only(landskap, text):
                 dict[land] += 1
             
     return dict
+#
+#words = read_words('nilsholg.txt')
+#
+#print(count_only(provinces, bok))
+undantag = read_words('undantagsord.txt')
 
-words = read_words('nilsholg.txt')
+def count_all_except(untantag, text):
+    lista = {}
+    
+    for word in text:
+        if word not in undantag:
+            if not lista.get(f"{word}"):
+                lista[word] = 0
+            lista[word] += 1
+            
+    sorted_dict = dict(sorted(lista.items(), key=lambda x: x[1], reverse=True))
+    
+    return sorted_dict
 
-print(count_only(provinces, bok))
+scaled_down = dict(list(count_all_except(undantag,bok).items())[:10])
+print(scaled_down)
+
+            
+    
+    
+    

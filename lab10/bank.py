@@ -1,5 +1,6 @@
 from account import Account
 
+
 class Bank:
     def __init__(self):
         self._customers = {}
@@ -27,3 +28,40 @@ class Bank:
 
     def get_account(self, account_nbr):
         return self._accounts.get(account_nbr)
+
+    def accounts_by_customer(self, customer_id):
+        accounts = []
+        for account in self._accounts.values():
+            if account.get_customer_id() == customer_id:
+                accounts.append(account)
+        return accounts
+
+    def remove_account(self, account_nbr):
+        account = self._accounts.get(account_nbr)
+        if account is not None and account.get_balance() == 0:
+            del self._accounts[account_nbr]
+            return True
+        else:
+            return False
+
+    def transfer(self, from_account_nbr, to_account_nbr, amount):
+        from_account = self._accounts.get(from_account_nbr)
+        to_account = self._accounts.get(to_account_nbr)
+        if from_account is None or to_account is None:
+            return False
+        elif from_account.get_balance() < amount:
+            return False
+        else:
+            from_account.withdraw(amount)
+            to_account.deposit(amount)
+            return True
+
+    def total_balances(self):
+        return sum(account.get_balance() for account in self._accounts.values())
+
+    def all_accounts(self):
+        return list(self._accounts.values())
+
+    def all_accounts_sorted_by_balance(self):
+        return sorted(self._accounts.values(), key=lambda account: account.get_balance(), reverse=True)
+

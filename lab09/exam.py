@@ -62,8 +62,23 @@ class ExamResult:
         
     
     def print_results(self):
-        pass
-    
+        print('# Exam Information')
+        print(f"Course code: {self.course_code}")
+        print(f"Date: {self.date}")
+        print()
+        print('# Grades')
+        for k, v in self.result.items():
+            if v != 'U':
+                print(f"{k}: {v} ,{self.grade_from_score(int(v))}")
+            else:
+                print(f"{k}: {v} U")
+                
+        print() 
+        statistics = self.statistics()
+        print('# Grade Statistics')
+        for k, v in statistics.items():
+            print(f"{k}: {v[0]} ({int(v[1])*100:.1f}%)")
+
 
 exam = ExamResult('EDAA20','2020-01-01',[30,40,50])
 
@@ -72,20 +87,25 @@ exam.add_result('S01',25)
 exam.add_result('S04',15)
 exam.add_result('S03',45)
 exam.add_result('S05',55)
-print(exam.get_result('S01'))
-
-print(exam.students())
-
-print(exam.students_highest_score())
-
-print(exam.statistics())
-
-
-
-
-
 
 print(f"All students results: {json.dumps(exam.result,indent=4)}")
+
+#print(exam.get_result('S01'))
+#
+#print(exam.students())
+#
+#print(exam.students_highest_score())
+#
+#print(exam.statistics())
+
+print('=======================')
+exam.print_results()
+
+
+
+
+
+
 
     
 

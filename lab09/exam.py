@@ -41,10 +41,10 @@ class ExamResult:
         return ordered
             
     def students_highest_score(self):
-        sorted_ids = sorted(self.result.keys(), key=lambda x: (
-        {'5': 0, '4': 1, '3': 2, 'U': 3}[self.result[x]], x))
+        sorted_results = sorted(self.result.items(), key=lambda x: x[1], reverse=True)
+        return sorted_results
 
-        return sorted_ids
+
     
     def statistics(self):
         grades = ['U', '3', '4', '5']
@@ -95,7 +95,7 @@ print(f"All students results: {json.dumps(exam.result,indent=4)}")
 #print(exam.students_highest_score())
 #
 
-
+print(f"highest score: {exam.students_highest_score()}")
 print('=======================')
 exam.print_results()
 #print(exam.statistics())

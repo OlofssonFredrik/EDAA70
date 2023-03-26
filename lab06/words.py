@@ -51,8 +51,19 @@ def count_all_except(untantag, text):
     
     return sorted_dict
 
-scaled_down = dict(list(count_all_except(undantag,bok).items())[:10])
-print(scaled_down)
+scaled_down = dict(list(count_all_except(undantag,bok).items()))
+#print(scaled_down)
+
+def filter_list(dict, n):
+    new_dict = {}
+    for k,v in dict.items():
+        if v > n:
+            new_dict[k] = v
+    
+    return new_dict
+
+print(filter_list(scaled_down,100))
+        
 
             
     

@@ -2,11 +2,6 @@ import turtle
 import math
 import random
 
-
-ninja = turtle.Turtle()
-ninja2 = turtle.Turtle()
-
-
 class Padda:
     def __init__(self,padda1,padda2,x1,x2,y1,y2):
         self.padda1 = padda1
@@ -55,9 +50,11 @@ class Padda:
             
         turtle.mainloop()
 
-ninja = turtle.Turtle
-ninja2 = turtle.Turtle
-Padda(ninja, ninja2,-50,-50,50,50).random_walk()
+
+
+ninja = turtle.Turtle()
+ninja2 = turtle.Turtle()
+Padda(ninja, ninja2,-50,50,-50,50).random_walk()
         
 
     

@@ -1,54 +1,57 @@
-from maze import Maze
 import turtle
+import maze
+
+def solve_maze(maze_num,turtle_size):
+    # Create maze object
+    maze.oby = maze.Maze(maze_num)
+
+    # If a big maze, make the turtle run faster
+    if(maze_num==5):
+        turtle.Screen().tracer(2)
+    if(maze_num==4):
+        turtle.Screen().delay(0.8)
+
+    # Create turtle object
+    t = turtle.Turtle()
+    t.shape("turtle")
+    t.color("blue")
+    t.penup()
+    t.shapesize(turtle_size)
+
+    # Set turtle position to entry and direction upwards
+    t.goto(maze.oby.entry())
+    t.setheading(90)
+
+    # Walk along the left wall until exit is reached
+    while not maze.oby.at_exit(t.pos()):
+        # Check if there is a wall to the left
+        left_wall = maze.oby.wall_at_left(t.heading(), t.pos())
+
+        # Check if there is a wall in front of turtle
+        front_wall = maze.oby.wall_in_front(t.heading(), t.pos())
+
+        if left_wall and front_wall:
+            # Wall to the left and front, turn right
+            t.right(90)
+        elif left_wall and not front_wall:
+            # Wall to the left but no wall in front, move forward
+            t.forward(1)
+        else:
+            # No wall to the left, turn left
+            t.left(90)
+            t.forward(1)
+
+    # Exit reached, print a message
+    print("Exit reached!")
+
+    # Keep the turtle window open until manually closed
+    turtle.mainloop()
 
 
-maze = Maze(4)
-x,y = maze.entry()
+print("==========================================================================")
+print("Enter which maze you want to solve, you can choose between 1-5 and the size of your turtle, choose between 0-1.")
+print("==========================================================================")
+maze_num = int(input("Enter maze "))
+turtle_size = float(input("Enter Turtle Size "))
 
-ninja = turtle.Turtle()
-ninja.penup()
-ninja.goto(x,y)
-ninja.shapesize(0.75)
-ninja.shape('turtle')
-angle = 90
-ninja.setheading(angle)
-
-
-
-
-while not maze.at_exit((x,y)):
-    print(f"xcor: {ninja.xcor()} ycor: {ninja.ycor()}")
-    
-    
-    if maze.wall_at_left(angle,(x,y)):
-        ninja.forward(9)
-    else:
-        angle = 180
-        ninja.setheading(angle)
-   
-    
-   
-    #ninja.left(90)
-    
-        
-    
-        
-        
-    #if not maze.wall_in_front(angle,(x,y)):
-    #    ninja.forward(10)
-    #
-    #ninja.forward(10)
-    #if x == ninja.xcor():
-    #    break
-    
-    x = ninja.xcor()
-    y = ninja.ycor()
-    
-    
-#Gå rakt fram. 
-#Finns det inte vägg till vänster? Gå Vänster
-#F
-   
-    
-turtle.mainloop()
-
+solve_maze(maze_num,turtle_size)

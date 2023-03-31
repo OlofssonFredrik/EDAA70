@@ -22,12 +22,13 @@ def solve_maze(maze_num,turtle_size):
     t.goto(maze.object.entry())
     t.setheading(90)
     
+    # Highlight the turtles path
     t.pendown()
     t.pencolor('Red')
+    
+    
     # Walk along the left wall until exit is reached
     while not maze.object.at_exit(t.pos()):
-        
-        
         # Check if there is a wall to the left
         left_wall = maze.object.wall_at_left(t.heading(), t.pos())
 

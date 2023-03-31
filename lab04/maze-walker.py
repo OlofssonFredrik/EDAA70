@@ -3,7 +3,7 @@ import maze
 
 def solve_maze(maze_num,turtle_size):
     # Create maze object
-    maze.oby = maze.Maze(maze_num)
+    maze.object = maze.Maze(maze_num)
 
     # If a big maze, make the turtle run faster
     if(maze_num==5):
@@ -19,16 +19,20 @@ def solve_maze(maze_num,turtle_size):
     t.shapesize(turtle_size)
 
     # Set turtle position to entry and direction upwards
-    t.goto(maze.oby.entry())
+    t.goto(maze.object.entry())
     t.setheading(90)
-
+    
+    t.pendown()
+    t.pencolor('Red')
     # Walk along the left wall until exit is reached
-    while not maze.oby.at_exit(t.pos()):
+    while not maze.object.at_exit(t.pos()):
+        
+        
         # Check if there is a wall to the left
-        left_wall = maze.oby.wall_at_left(t.heading(), t.pos())
+        left_wall = maze.object.wall_at_left(t.heading(), t.pos())
 
         # Check if there is a wall in front of turtle
-        front_wall = maze.oby.wall_in_front(t.heading(), t.pos())
+        front_wall = maze.object.wall_in_front(t.heading(), t.pos())
 
         if left_wall and front_wall:
             # Wall to the left and front, turn right
